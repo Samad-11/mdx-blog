@@ -8,7 +8,7 @@ const LatestPost = async () => {
     const latestPosts = getMDXData(data)
     return (
         <div className='space-y-10'>
-            <h2 className='text-3xl tracking-tight'>Recently Published</h2>
+            <h2 className='text-3xl tracking-tight '>Recently Published</h2>
             <div className='space-y-10'>
                 {
                     latestPosts
@@ -17,8 +17,10 @@ const LatestPost = async () => {
                                 <h3>
                                     <Link title={post.metadata.title || "Latest Post"} className='font-bold hover:text-blue-500' href={`/blog/${slugify(post.metadata.category)}/${post.slug}`}>{post.metadata.title}</Link>
                                 </h3>
-                                <p className='pl-2'>{post.metadata.summary}</p>
-                                <p className='text-muted-foreground'>{formateDate(data[indx].createdAt.toISOString(), true)}</p>
+                                <div className='pl-1 space-y-3'>
+                                    <p className=''>{post.metadata.summary}</p>
+                                    <p className='text-sm text-muted-foreground'>{formateDate(data[indx].createdAt.toISOString(), true)}</p>
+                                </div>
                             </article>
                         ))
                 }
