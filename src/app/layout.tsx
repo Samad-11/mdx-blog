@@ -43,6 +43,9 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: siteConfig.url,
+    types: {
+      "text/html": "https://www.timelesstopics.onine"
+    }
   },
   verification: {
     other: {
@@ -56,8 +59,12 @@ export const metadata: Metadata = {
     apple: ['apple-touch-icon.png?v=4'],
     shortcut: ['apple-touch-icon.png'],
   },
-  manifest: "/site.webmanifest"
-
+  manifest: "/site.webmanifest",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  referrer: "no-referrer-when-downgrade"
 };
 
 

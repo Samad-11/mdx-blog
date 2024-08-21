@@ -56,9 +56,9 @@ const page = async ({ searchParams }: { searchParams?: { page?: string } }) => {
             </div>
             <Container>
                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
-                    {allPosts.map((post) => (
+                    {allPosts.map((post, indx) => (
                         <article key={post.slug} className=''>
-                            <PostCard category={post.metadata.category} slug={post.slug} summary={post.metadata.summary} title={post.metadata.title} />
+                            <PostCard category={data[indx].category} slug={post.slug} summary={post.metadata.summary} title={data[indx].title} />
                         </article>
                     ))
                     }
