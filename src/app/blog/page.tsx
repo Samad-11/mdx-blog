@@ -14,7 +14,11 @@ import Pagination from '@/components/Pagination'
 
 export const metadata: Metadata = {
     title: "All of the blog post ",
-    description: "All the blogs posts are here you can choose as your desire"
+    description: "All the blogs posts are here you can choose as your desire",
+    alternates: {
+        canonical: `${baseUrl}/blog`
+    },
+    keywords: ['technology, latest, news, ai, update']
 }
 
 

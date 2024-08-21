@@ -8,19 +8,19 @@ import { baseUrl, CATEGORIES, siteConfig } from '@/lib/constants'
 import BackButton from '@/components/BackButton'
 import { WithContext, Blog } from 'schema-dts'
 import { getPostsByCategory } from '@/lib/actions'
+import { Metadata, ResolvingMetadata } from 'next'
 
 
 
-export function generateMetadata({ params }: { params: { category: string } }) {
+export async function generateMetadata({ params }: { params: { category: string } }, parent: ResolvingMetadata): Promise<Metadata> {
     const categoryObject = CATEGORIES.find((c) => c.href.includes(params.category))
     if (!categoryObject) {
-        return
+        return Promise.reject()
     }
 
     return {
         title: categoryObject?.title,
         description: categoryObject?.description,
-        canonical: `${siteConfig.url}/blog/${params.category}`,
         openGraph: {
             type: "website",
             url: siteConfig.url,
@@ -31,7 +31,22 @@ export function generateMetadata({ params }: { params: { category: string } }) {
                     url: `${siteConfig.url}/og?title=${encodeURIComponent(categoryObject?.title)}`
                 }
             ]
+        },
+        alternates: {
+            canonical: `${siteConfig.url}/blog/${params.category}`
+        },
+        twitter: {
+            card: "summary_large_image",
+            creator: "Abdus Samad",
+            title: categoryObject.title,
+            description: categoryObject.title,
+            images: [
+                {
+                    url: `${siteConfig.url}/og?title=${encodeURIComponent(categoryObject?.title)}`,
+                }
+            ]
         }
+
     }
 }
 

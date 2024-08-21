@@ -64,7 +64,8 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  referrer: "no-referrer-when-downgrade"
+  referrer: "no-referrer-when-downgrade",
+
 };
 
 

@@ -12,12 +12,13 @@ import { getAllHeadings, getMDXData, slugify } from '@/lib/utils'
 import NestedAccordion from '@/components/NestedAccordion'
 import { PostCard } from '@/components/PostCard'
 import { notFound } from 'next/navigation'
+import { Metadata, ResolvedMetadata } from 'next'
 
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: { params: { slug: string } }, parent: ResolvedMetadata): Promise<Metadata> {
     const post = await getPostsBySlug(params.slug)
     if (!post) {
-        return
+        return Promise.reject()
     }
     let ogImage = `${siteConfig.url}/og?title=${encodeURIComponent(post?.title)}`
     let keywords = post.keywords ? post.keywords?.split(",") : []
@@ -25,7 +26,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         title: post?.title,
         keywords,
         description: post?.title,
-        canonical: `${siteConfig.url}/blog/${post?.categorySlug}/${post?.slug}`,
+        alternates: {
+            canonical: `${siteConfig.url}/blog/${post?.categorySlug}/${post?.slug}`,
+        },
         openGraph: {
             title: post.title,
             description: post.title,
@@ -42,8 +45,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
             card: "summary_large_image",
             title: post.title,
             description: post.title,
-            images: [ogImage]
-        }
+            images: [
+                {
+                    url: ogImage
+                }
+            ]
+        },
+        authors: [{ name: "Abdus Samad", url: siteConfig.links.github }],
     }
 }
 
