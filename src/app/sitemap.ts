@@ -2,6 +2,8 @@ import { baseUrl, CATEGORIES } from "@/lib/constants";
 import { MetadataRoute } from "next";
 import { getAllPost } from "@/lib/actions";
 
+export const revalidate = 1500
+
 export default async function sitemap() {
     // Implement sitemap generation logic here
     const allBlogs = await getAllPost() || []

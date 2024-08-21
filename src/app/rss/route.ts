@@ -32,6 +32,9 @@ export async function GET() {
         </channel>
       </rss>`;
 
+    console.log(rssFeed);
+
+
     return new Response(rssFeed, {
         headers: {
             "Content-Type": "text/xml",

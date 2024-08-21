@@ -16,7 +16,8 @@ export function slugify(str: string) {
     .replace(/&/g, "-and-")
     .replace(/\-\-+/g, "-")
     .replace(/\s*:\s*/g, "-")
-    .replace(/\./g, "");
+    .replace(/\./g, "")
+    .replace(/[^a-zA-Z0-9\s-]/g, '');
 }
 
 
