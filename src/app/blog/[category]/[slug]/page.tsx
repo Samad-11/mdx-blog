@@ -12,16 +12,14 @@ import { getAllHeadings, getMDXData, slugify } from '@/lib/utils'
 import NestedAccordion from '@/components/NestedAccordion'
 import { PostCard } from '@/components/PostCard'
 import { notFound } from 'next/navigation'
-import { Metadata, ResolvedMetadata } from 'next'
 
 
-export async function generateMetadata({ params }: { params: { slug: string } }, parent: ResolvedMetadata): Promise<Metadata> {
-    const post = await getPostsBySlug(params.slug)
-    if (!post) {
-        return Promise.reject()
-    }
-    let ogImage = `${siteConfig.url}/og?title=${encodeURIComponent(post?.title)}`
-    let keywords = post.keywords ? post.keywords?.split(",") : []
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+    const post = await getPostsBySlug(params.slug);
+
+
+    let ogImage = `${siteConfig.url}/og?title=${encodeURIComponent(post?.title || "")}`;
+    let keywords = post?.keywords ? post.keywords?.split(",") : []
     return {
         title: post?.title,
         keywords,
@@ -30,11 +28,11 @@ export async function generateMetadata({ params }: { params: { slug: string } },
             canonical: `${siteConfig.url}/blog/${post?.categorySlug}/${post?.slug}`,
         },
         openGraph: {
-            title: post.title,
-            description: post.title,
+            title: post?.title,
+            description: post?.title,
             type: "article",
-            publishedTime: post.createdAt.toISOString(),
-            url: `${siteConfig.url}/blog/${post.categorySlug}/${post.slug}`,
+            publishedTime: post?.createdAt.toISOString(),
+            url: `${siteConfig.url}/blog/${post?.categorySlug}/${post?.slug}`,
             images: [
                 {
                     url: ogImage
@@ -43,8 +41,8 @@ export async function generateMetadata({ params }: { params: { slug: string } },
         },
         twitter: {
             card: "summary_large_image",
-            title: post.title,
-            description: post.title,
+            title: post?.title,
+            description: post?.title,
             images: [
                 {
                     url: ogImage

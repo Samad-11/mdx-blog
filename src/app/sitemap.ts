@@ -35,6 +35,12 @@ export default async function sitemap() {
             lastModified: "2024-08-17",
         },
         {
+            url: `${baseUrl}/privacy-policy`,
+            priority: 0.5,
+            changeFrequency: "yearly",
+            lastModified: new Date("2024-08-21").toISOString(),
+        },
+        {
             url: `${baseUrl}/terms-and-conditions`,
             priority: 0.5,
             changeFrequency: "monthly",
